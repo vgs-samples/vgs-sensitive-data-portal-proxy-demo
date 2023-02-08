@@ -2,7 +2,7 @@ data:
   - attributes:
       created_at: '2023-01-26T15:22:08'
       destination_override_endpoint: >-
-        https://mottersheadt-opulent-spoon-96596x66q9fx7r9-3000.preview.app.github.dev
+        echo.apps.verygood.systems
       entries:
         - classifiers: {}
           config:
