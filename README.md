@@ -1,4 +1,4 @@
-# VGS Payment Acceptance Demo
+# VGS Sensitive Data Portal Proxy Demo
 
 ## How to use this repo:
 ### Set up steps
