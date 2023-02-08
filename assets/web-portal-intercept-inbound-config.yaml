@@ -1,0 +1,102 @@
+data:
+  - attributes:
+      created_at: '2023-01-26T15:22:08'
+      destination_override_endpoint: >-
+        https://mottersheadt-opulent-spoon-96596x66q9fx7r9-3000.preview.app.github.dev
+      entries:
+        - classifiers: {}
+          config:
+            condition: AND
+            rules:
+              - expression:
+                  field: PathInfo
+                  operator: matches
+                  type: string
+                  values:
+                    - /(.*)
+          id: fe1da605-898c-4b4b-a386-b56fe643759b
+          id_selector: null
+          operation: REDACT
+          operations:
+            - name: github.com/verygoodsecurity/common/compute/larky/http/Process
+              parameters:
+                script: |-
+                  load("@stdlib//builtins", builtins="builtins")
+                  load("@stdlib//re", "re")
+                  load("@vgs//vault", "vault")
+                  load("@vendor//luhn", luhn="luhn")
+                  load("@vendor//option/result",
+                      Result="Result",
+                      Ok="Ok",
+                      Error="Error",
+                      safe="safe")
+
+                  CARD_PATTERN = r"(\d{13,19})"
+
+                  def process(input, ctx):
+                      body = input.body.decode('utf-8')
+                      
+                      sixteen_digits = re.findall(CARD_PATTERN, body)
+                      for num in sixteen_digits:
+                          if luhn.verify(num):
+                              card_token = vault.redact(num, format='NUM_LENGTH_PRESERVING')
+                              body = body.replace(num, card_token)
+
+                      input.body = builtins.bytes(body)
+                      return input
+          phase: RESPONSE
+          public_token_generator: UUID
+          targets:
+            - body
+          token_manager: PERSISTENT
+          transformer: JSON_PATH
+          transformer_config:
+            - $.account_number
+          transformer_config_map: null
+          type: null
+        - classifiers: {}
+          config:
+            condition: AND
+            rules:
+              - expression:
+                  field: PathInfo
+                  operator: matches
+                  type: string
+                  values:
+                    - /(.*)
+          id: ee1da605-898c-4b4b-a386-b56fe643759b
+          id_selector: null
+          operation: REDACT
+          operations:
+            - name: github.com/verygoodsecurity/common/compute/larky/http/Process
+              parameters:
+                script: |-
+                  load("@stdlib//builtins", builtins="builtins")
+                  def process(input, ctx):
+                      body = input.body.decode('utf-8')
+                      body = body.replace('<body>', '<body><div style="text-align: center;padding: 7px;background: #ffc251;">Sensitive data has been tokenized by VGS</div>')
+                      input.body = builtins.bytes(body)
+                      return input
+          phase: RESPONSE
+          public_token_generator: UUID
+          targets:
+            - body
+          token_manager: PERSISTENT
+          transformer: JSON_PATH
+          transformer_config:
+            - $.account_number
+          transformer_config_map: null
+          type: null
+      host_endpoint: (.*)\.verygoodproxy\.com
+      id: 1c787ae0-5a88-4c57-86b3-a8926ffee513
+      ordinal: null
+      port: 80
+      protocol: http
+      source_endpoint: '*'
+      tags:
+        name: web-portal-intercept
+        source: RouteContainer
+      updated_at: '2023-02-07T00:33:46'
+    id: 1c787ae0-5a88-4c57-86b3-a8926ffee513
+    type: rule_chain
+version: 1

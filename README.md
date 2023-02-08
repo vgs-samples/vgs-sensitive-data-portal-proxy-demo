@@ -1,9 +1,6 @@
 # VGS Payment Acceptance Demo
 
 ## How to use this repo:
-### Walkthrough Video
-[![Walkthrough Video](https://img.youtube.com/vi/wdzrkKVJMO0/0.jpg)](https://www.youtube.com/watch?v=wdzrkKVJMO0)
-
 ### Set up steps
 1. Create a new Github codespace in this repo
 1. Create `.env` file in root of repo by copying `.env-example`
