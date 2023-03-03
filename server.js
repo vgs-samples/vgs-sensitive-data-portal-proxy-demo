@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const qs = require('qs');
+var multer  =   require('multer');  
 
 const app = express();
 
@@ -18,6 +19,27 @@ app.get('/get_card_list', async (req, res) => {
 app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
+
+
+var storage =   multer.diskStorage({  
+    destination: function (req, file, callback) {  
+      callback(null, './uploads');  
+    },  
+    filename: function (req, file, callback) {  
+      callback(null, file.originalname);  
+    }  
+  });  
+  var upload = multer({ storage : storage}).single('file');  
+  
+
+  app.post('/uploadjavatpoint',function(req,res){  
+    upload(req,res,function(err) {  
+        if(err) {  
+            return res.end("Error uploading file.");  
+        }  
+        res.end("File is uploaded successfully!");  
+    });  
+});  
 
 function getCardList(card_number) {
     let response = [

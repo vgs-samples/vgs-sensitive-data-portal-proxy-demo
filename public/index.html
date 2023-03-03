@@ -32,6 +32,23 @@
         </table>
       </div>
     </div>
+    
+    <h3>Download file</h3>
+    <p>
+      <i>When proxying the web portal through VGS, the card numbers in the file will be tokenized during download</i>
+      <br>
+      <a href="/example-file.csv" target="_blank">Example CSV File</a>
+    </p>
+
+    <h3>Upload file</h3>
+    <p>
+      <i>When proxying the web portal through VGS, the tokenized card numbers will be revealed during upload</i>
+      <br>
+      <form action="/uploadjavatpoint">
+        <input type="file" id="file" name="filename">
+        <input type="submit">
+      </form>
+    </p>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.3.min.js"

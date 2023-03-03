@@ -16,3 +16,22 @@ async function setUpApp() {
   debugger
 }
 setUpApp()
+
+$("form").submit(function(){
+  var formData = new FormData();
+  formData.append('file', $('#file')[0].files[0]);
+  
+  $.ajax({
+         url : '/uploadjavatpoint',
+         type : 'POST',
+         data : formData,
+         processData: false,  // tell jQuery not to process the data
+         contentType: false,  // tell jQuery not to set contentType
+         success : function(data) {
+             console.log(data);
+             alert(data);
+         }
+  });
+
+  return false;
+});
