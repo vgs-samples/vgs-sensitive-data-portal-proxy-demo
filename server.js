@@ -6,6 +6,8 @@ var multer  =   require('multer');
 
 const app = express();
 
+const port = process.env.PORT || 3000;
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'))
@@ -16,7 +18,7 @@ app.get('/get_card_list', async (req, res) => {
     res.send(results);
 });
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log('Server started on port 3000');
 });
 
